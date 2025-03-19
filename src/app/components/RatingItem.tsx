@@ -40,7 +40,7 @@ export default function RatingItem({ rating }: RatingItemProps) {
       </div>
       {rating.feedback && (
         <div className="mt-3 pl-10">
-          <p className="text-gray-700">{rating.feedback}</p>
+          <p className="text-gray-700" data-testid="rating-feedback">{rating.feedback}</p>
         </div>
       )}
     </div>
