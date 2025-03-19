@@ -20,7 +20,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <meta name="description" content={metadata.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </head>
-      <body className="antialiased">
+      <body>
         <RatingProvider>
           {children}
         </RatingProvider>

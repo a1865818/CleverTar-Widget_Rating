@@ -22,9 +22,12 @@ export default function Dashboard() {
     return distribution;
   };
 
+  // Filter ratings based on selection and then sort by timestamp (newest first)
   const filteredRatings = filterValue === 'all'
-    ? ratings
-    : ratings.filter((rating) => rating.score === parseInt(filterValue));
+    ? [...ratings].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
+    : [...ratings]
+        .filter((rating) => rating.score === parseInt(filterValue))
+        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -102,7 +105,7 @@ export default function Dashboard() {
             <RatingItem
               key={rating.id}
               rating={{
-                rating: rating.score, // Map 'score' to 'rating'
+                rating: rating.score, 
                 timestamp: new Date(rating.timestamp || 0).toISOString(),
                 feedback: rating.comment,
               }}

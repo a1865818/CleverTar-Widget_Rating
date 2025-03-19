@@ -1,6 +1,4 @@
 // components/RatingItem.tsx
-"use client";
-
 interface Rating {
   rating: number;
   timestamp: string;

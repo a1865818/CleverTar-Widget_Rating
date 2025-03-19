@@ -1,5 +1,3 @@
-"use client";
-
 import RatingWidget from '../components/RatingWidget';
 import Link from 'next/link';
 
@@ -20,25 +18,25 @@ export default function RatePage() {
           <RatingWidget />
         </div>
         
-        <div className="text-center mt-8 md:mt-12 space-y-3">
+        <div className="flex justify-center gap-4 mt-8 md:mt-12">
           <Link 
             href="/" 
-            className="text-blue-600 hover:text-blue-800 font-medium text-sm sm:text-base transition-colors duration-200 flex items-center justify-center"
+            className="flex items-center justify-center bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 font-medium rounded-md px-5 py-2.5 transition-colors duration-200"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
-            <span>Back to Home</span>
+            Back to Home
           </Link>
-          
           <Link 
             href="/dashboard" 
-            className="text-blue-600 hover:text-blue-800 font-medium text-sm sm:text-base transition-colors duration-200 flex items-center justify-center"
+            className="flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-md px-5 py-2.5 transition-colors duration-200"
           >
-            <span>View Ratings Dashboard</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
+              <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
             </svg>
+            View Ratings Dashboard
           </Link>
         </div>
       </div>

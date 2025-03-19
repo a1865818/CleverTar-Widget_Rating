@@ -1,6 +1,9 @@
 // components/FeedbackForm.tsx
-"use client";
+/*
+  
 
+*/
+"use client";
 import { useState } from 'react';
 
 interface FeedbackFormProps {
@@ -16,6 +19,8 @@ export default function FeedbackForm({ onSubmit, rating }: FeedbackFormProps) {
     if (feedback.trim()) {
       onSubmit(feedback);
       setFeedback(''); // Clear feedback after submission
+    } else {
+      alert('Please enter your feedback before submitting.');
     }
   };
 
@@ -46,7 +51,6 @@ export default function FeedbackForm({ onSubmit, rating }: FeedbackFormProps) {
         <button
           type="submit"
           className="w-full py-2 px-3 sm:px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-medium rounded-md transition-colors"
-          disabled={!feedback.trim()} // Disable button if feedback is empty
         >
           Submit Feedback
         </button>
