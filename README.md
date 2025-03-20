@@ -169,6 +169,7 @@ If I were to extend this project, I would consider:
 - Implementing server-side storage with a database
 - Allow users to edit or delete their ratings
 - Implementing custom theming options
+- Showing user's name and profile picture in the review
 
 ## 📄 License
 
