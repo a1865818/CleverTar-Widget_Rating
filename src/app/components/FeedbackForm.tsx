@@ -1,3 +1,24 @@
+/**
+ * FeedbackForm Component
+ * 
+ * A responsive feedback collection form that displays after a user has provided a star rating.
+ * The form shows the user's selected rating (1-5 stars) and provides a textarea for additional
+ * written feedback.
+ * 
+ * Features:
+ * - Displays the user's previously provided star rating
+ * - Collects textual feedback through a textarea
+ * - Validates that feedback is not empty before submission
+ * - Provides accessibility features (ARIA labels)
+ * - Responsive design for different screen sizes
+ * - Clears the form after successful submission
+ * 
+ * @params :
+ * onSubmit: A function to handle the form submission
+ * rating: The user's selected rating (1-5 stars)
+ * 
+ * @returns A feedback form component
+ */
 /*
   
 

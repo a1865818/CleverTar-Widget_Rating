@@ -1,3 +1,22 @@
+/* 
+  RatingWidget Component
+  
+  This component allows users to rate a website on a scale of 1-5 stars and
+  provide feedback. The rating widget has three main states:
+  
+  1. Initial state: Displays 5 star buttons for the user to select a rating
+  2. Feedback state: After selecting a rating, shows a feedback form
+  3. Success state: Displays a thank you message after submission
+  
+  Features:
+  - Interactive star rating with hover effects
+  - Form to collect user comments after rating
+  - Context integration to store ratings
+  - Responsive design for different screen sizes
+  - Accessibility support with aria-labels
+  
+  - @returns A rating widget component with feedback form
+*/
 "use client";
 
 import { useState, useCallback } from 'react';

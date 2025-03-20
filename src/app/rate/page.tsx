@@ -1,3 +1,19 @@
+/**
+ * Rate Page Component
+ * 
+ * This component renders a user-friendly rating page where visitors can provide feedback
+ * about their website experience. It includes:
+ * 
+ * - A clear, descriptive header with page title and explanation
+ * - The main RatingWidget component that handles the actual rating functionality
+ * - Navigation links to return to the home page or view the ratings dashboard
+ * 
+ * The layout is responsive with different spacing and sizing for various viewport sizes
+ * using Tailwind CSS utility classes. The component utilizes Next.js's built-in Link
+ * component for client-side navigation between pages.
+ * 
+ * @returns A responsive rating page with a rating widget and navigation links
+ */
 import RatingWidget from '../components/RatingWidget';
 import Link from 'next/link';
 

@@ -1,3 +1,27 @@
+/*
+ * RatingContext.tsx
+ * 
+ * This file implements a React Context for managing website ratings throughout the application.
+ * 
+ * Key features:
+ * - Provides a central store for website ratings data
+ * - Persists ratings to localStorage to maintain data between sessions
+ * - Offers methods to add new ratings and clear existing ones
+ * - Uses React Context API to make rating data accessible to all components
+ * 
+ * The context exposes:
+ * - ratings: Array of Rating objects
+ * - addRating: Function to add a new rating
+ * - clearRatings: Function to remove all ratings
+ * 
+ * This pattern allows any component in the component tree to access or modify
+ * rating data without prop drilling.
+ * 
+ * @params: children - ReactNode - Child components to be wrapped by the RatingContext provider
+ * 
+ * @returns A RatingContext provider component and a custom hook for consuming the context
+ */
+
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';

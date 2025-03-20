@@ -1,3 +1,21 @@
+/*
+ * Dashboard Component
+ * 
+ * This component represents the main dashboard view of the rating application.
+ * 
+ * Features:
+ * - Displays rating statistics (total count, average rating, highest rating)
+ * - Shows a visual distribution of ratings (1-5 stars)
+ * - Allows filtering of ratings by star count
+ * - Lists all ratings with their details
+ * - Provides functionality to clear all ratings with confirmation
+ * 
+ * The component uses the RatingContext to access and manipulate rating data,
+ * and renders various sub-components including RatingItem and ConfirmationModal.
+ * 
+ * @returns A dashboard view with rating statistics and list of ratings
+ */
+
 "use client";
 
 import { useRatingContext } from '../context/RatingContext';

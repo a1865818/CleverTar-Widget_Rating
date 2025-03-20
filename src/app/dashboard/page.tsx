@@ -1,3 +1,20 @@
+/**
+ * This file defines the `DashboardPage` component, which serves as the main page
+ * for displaying the Ratings Dashboard in the application. It provides a user-friendly
+ * interface for viewing and analyzing user-submitted ratings.
+ *
+ * The page includes:
+ * - A header section with a title and description of the dashboard.
+ * - The `Dashboard` component, which is responsible for rendering the core dashboard content.
+ * - Navigation links for user convenience:
+ * - A "Back to Home" button that navigates to the homepage.
+ * - A "Rate Our Website" button that navigates to the rating submission page.
+ *
+ * The layout is styled using Tailwind CSS classes to ensure a responsive and visually appealing design.
+ * 
+ * @returns A responsive dashboard page with the ratings dashboard and navigation links
+*/
+
 import Dashboard from '../components/Dashboard';
 import Link from 'next/link';
 

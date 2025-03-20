@@ -1,3 +1,28 @@
+/*
+ * Confirmation Modal Component
+ * 
+ * This component creates a reusable modal dialog for confirming user actions.
+ * It handles displaying a custom title, message, and customizable button text.
+ * 
+ * Features:
+ * - Fully accessible with proper ARIA attributes
+ * - Closes when clicking outside the modal or pressing ESC key
+ * - Customizable confirm/cancel button text
+ * - Smooth animations with CSS transitions
+ * - Backdrop blur effect for better UX
+ * - Responsive design that works on all screen sizes
+ * 
+ * @param isOpen: A boolean to control the modal visibility
+ * @param onClose: A function to close the modal
+ * @param onConfirm: A function to handle the confirmation action
+ * @param title: The title of the modal
+ * @param message: The message to display in the modal
+ * @param confirmButtonText: The text to display on the confirm button
+ * @param cancelButtonText: The text to display on the cancel button
+ * 
+ * @returns A confirmation modal component
+ */
+
 "use client";
 
 import { useRef, useEffect } from 'react';

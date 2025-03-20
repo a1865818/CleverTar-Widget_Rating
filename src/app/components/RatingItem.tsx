@@ -1,3 +1,27 @@
+/**
+ * RatingItem Component
+ * 
+ * This component renders an individual rating item in the ratings list.
+ * It displays a rating score (1-5) with a visual star representation,
+ * the timestamp of when the rating was submitted, and any feedback text
+ * that was provided with the rating.
+ * 
+ * Features:
+ * - Displays numeric rating in a blue badge
+ * - Shows visual star representation (filled yellow stars for the rating)
+ * - Formats the timestamp to a human-readable date and time
+ * - Conditionally renders feedback text when available
+ * - Includes hover effects for better UI interaction
+ * - Uses data-testid attributes for testing purposes
+ * 
+ * @params:
+ * rating: A DisplayRating object containing rating details
+ * 
+ * @returns A formatted rating item card
+ */
+/*
+ */
+
 import { DisplayRating } from '../interfaces/Rating';
 
 interface RatingItemProps {
@@ -5,6 +29,7 @@ interface RatingItemProps {
 }
 
 export default function RatingItem({ rating }: RatingItemProps) {
+  // Format the date string to a human-readable format
   const formatDate = (isoString: string): string => {
     const date = new Date(isoString);
     return date.toLocaleString();
