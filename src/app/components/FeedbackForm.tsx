@@ -39,7 +39,7 @@ export default function FeedbackForm({ onSubmit, rating }: FeedbackFormProps) {
         ))}
       </div>
       <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">Would you like to share any additional feedback?</p>
-      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+      <form role='form' onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
         <textarea
           className="w-full p-2 sm:p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows={3}
