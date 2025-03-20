@@ -1,36 +1,168 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Website Rating Widget
 
-## Getting Started
+A responsive, interactive rating widget that allows visitors to rate your website on a scale of 1-5 stars and provide additional feedback. Built with Next.js and TypeScript, this application features a clean UI, persistent data storage, and a comprehensive analytics dashboard.
 
-First, run the development server:
+## 📋 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Rating Widget
+- Interactive 5-star rating system with hover effects
+- Two-step feedback collection (rating + comment)
+- Success confirmation after submission
+- Fully responsive design for all device sizes
+- Accessible with proper ARIA labels and keyboard navigation
+
+### Analytics Dashboard
+- Visual summary of all collected ratings
+- Rating statistics (total count, average rating, highest rating)
+- Interactive rating distribution chart
+- Filterable list of individual ratings
+- Option to clear all ratings (with confirmation)
+
+### Technical Features
+- Modern React with Next.js App Router
+- TypeScript for type safety
+- Data persistence using localStorage
+- Component-based architecture
+- Comprehensive test coverage
+- Tailwind CSS for styling
+
+## ✅ Requirements Fulfilled
+
+This implementation satisfies all requirements from the take-home test:
+
+- ✓ **Interactive rating selection**: Users can select from 1-5 stars with hover effects
+- ✓ **Clear visual feedback**: Selected stars change color and scale up when selected
+- ✓ **Easy integration**: Implemented as modular components that can be placed on any page
+- ✓ **Record user ratings**: All ratings are stored with timestamps and optional comments
+- ✓ **Dashboard UI**: Comprehensive dashboard showing all ratings with filtering options
+- ✓ **Visually appealing**: Clean, modern design with responsive layouts
+- ✓ **Simple storage**: Using localStorage for persistent data without backend requirements
+
+## 🚀 Live Demo
+
+View the live demo at: [https://rating-widget.vercel.app](https://rating-widget.vercel.app)
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Context API
+- **Testing**: Jest & React Testing Library
+- **Storage**: localStorage
+
+## 📦 Project Structure
+
+```
+my-app/
+├── src/
+│   ├── app/
+│   │   ├── components/       # Reusable UI components
+│   │   ├── context/          # Global state management
+│   │   ├── interfaces/       # TypeScript interfaces
+│   │   ├── __tests__/        # Test files
+│   │   ├── dashboard/        # Dashboard page
+│   │   ├── rate/             # Rating page
+│   │   ├── layout.tsx        # Root layout
+│   │   └── page.tsx          # Home page
+│   └── ...
+├── public/                   # Static assets
+└── ...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔍 Key Design Decisions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Separation of Data and Presentation
+Created distinct interfaces for data storage (`Rating`) and UI presentation (`DisplayRating`) to maintain clean separation of concerns.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Progressive Disclosure
+Implemented a stepped rating experience to reduce cognitive load - first stars, then feedback form.
 
-## Learn More
+### 3. Responsive Design
+All components adapt to different screen sizes with appropriate spacing and sizing.
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Accessibility
+Added proper ARIA labels, keyboard navigation, and focus management for screen readers.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Confirmation Flows
+Added modal confirmations for destructive actions like clearing all ratings.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📋 Installation & Setup
 
-## Deploy on Vercel
+### Prerequisites
+- Node.js 16.8 or later
+- npm or yarn
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone the repository
+   ```bash
+   git clone https://github.com/a1865818/CleverTar-Widget_Rating.git
+   cd my-app
+   ```
+
+2. Install dependencies
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) with your browser
+
+### Running Tests
+
+```bash
+npm test
+# or
+yarn test
+```
+
+## 🖥️ Usage
+
+### Home Page
+The home page features navigation buttons to access the rating widget or view the dashboard.
+
+### Rating Widget
+1. Click on a star (1-5) to select your rating
+2. Optionally provide additional feedback in the text area
+3. Submit your feedback
+4. View the success confirmation
+
+### Dashboard
+1. View summary statistics at the top (total ratings, average, highest)
+2. See the distribution of ratings in the chart
+3. Filter ratings by star count using the dropdown
+4. View individual ratings with their timestamps and comments
+
+## 🧪 Testing
+
+The application includes comprehensive test coverage for all components:
+- Unit tests for individual components and their logic
+- Test mocks for context and localStorage
+
+## 📱 Responsive Design
+
+The application is fully responsive and works well on:
+- Desktop browsers
+- Tablets
+- Mobile devices
+
+## 🚶 Next Steps
+
+If I were to extend this project, I would consider:
+- Adding user authentication
+- Implementing server-side storage with a database
+- Allow users to edit or delete their ratings
+- Implementing custom theming options
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
