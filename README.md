@@ -127,7 +127,7 @@ Added modal confirmations for destructive actions like clearing all ratings.
 ### Running Tests
 
 ```bash
-npm test
+npm run test
 # or
 yarn test
 ```
