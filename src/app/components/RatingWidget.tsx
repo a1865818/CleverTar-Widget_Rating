@@ -1,9 +1,9 @@
-// components/RatingWidget.tsx
 "use client";
 
 import { useState, useCallback } from 'react';
 import { useRatingContext } from '../context/RatingContext';
 import FeedbackForm from './FeedbackForm';
+import { Rating } from '../interfaces/Rating';
 
 export default function RatingWidget() {
   const [selectedRating, setSelectedRating] = useState<number>(0);
@@ -18,7 +18,7 @@ export default function RatingWidget() {
   }, []);
 
   const handleSubmitFeedback = useCallback((feedback: string) => {
-    const newRating = {
+    const newRating: Rating = {
       id: Date.now().toString(),
       score: selectedRating,
       comment: feedback,

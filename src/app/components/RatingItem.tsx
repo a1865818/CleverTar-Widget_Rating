@@ -1,12 +1,7 @@
-// components/RatingItem.tsx
-interface Rating {
-  rating: number;
-  timestamp: string;
-  feedback?: string;
-}
+import { DisplayRating } from '../interfaces/Rating';
 
 interface RatingItemProps {
-  rating: Rating;
+  rating: DisplayRating;
 }
 
 export default function RatingItem({ rating }: RatingItemProps) {

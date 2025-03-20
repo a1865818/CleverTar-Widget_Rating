@@ -3,14 +3,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Dashboard from "../components/Dashboard";
 import { useRatingContext } from "../context/RatingContext";
-
-// Define the type for the mock rating
-interface MockRating {
-  id: string;
-  score: number;
-  comment: string;
-  timestamp: number;
-}
+import { Rating, DisplayRating } from "../interfaces/Rating";
 
 // Mock the RatingContext hook
 jest.mock("../context/RatingContext", () => ({
@@ -20,7 +13,7 @@ jest.mock("../context/RatingContext", () => ({
 // Mock the RatingItem component
 jest.mock("../components/RatingItem", () => ({
   __esModule: true,
-  default: ({ rating }: { rating: { rating: number, timestamp: string, feedback?: string } }) => (
+  default: ({ rating }: { rating: DisplayRating }) => (
     <div data-testid="rating-item">
       <span data-testid="rating-score">{rating.rating}</span>
       {rating.feedback && <p data-testid="rating-feedback">{rating.feedback}</p>}
@@ -28,15 +21,50 @@ jest.mock("../components/RatingItem", () => ({
   ),
 }));
 
+// Mock the ConfirmationModal component with proper typings
+jest.mock("../components/ConfirmationModal", () => ({
+  __esModule: true,
+  default: ({ 
+    isOpen, 
+    title, 
+    message, 
+    onConfirm, 
+    onClose,
+    confirmButtonText = "Confirm",
+    cancelButtonText = "Cancel" 
+  }: {
+    isOpen: boolean;
+    title: string;
+    message: string;
+    onConfirm: () => void;
+    onClose: () => void;
+    confirmButtonText?: string;
+    cancelButtonText?: string;
+  }) => (
+    isOpen ? (
+      <div data-testid="confirmation-modal">
+        <h3 data-testid="modal-title">{title}</h3>
+        <p data-testid="modal-message">{message}</p>
+        <button data-testid="confirm-button" onClick={() => { onConfirm(); onClose(); }}>
+          {confirmButtonText}
+        </button>
+        <button data-testid="cancel-button" onClick={onClose}>
+          {cancelButtonText}
+        </button>
+      </div>
+    ) : null
+  ),
+}));
+
 describe("Dashboard Component", () => {
   // Sample test data
- const mockRatings: MockRating[] = [
-  { id: "1", score: 5, comment: "Excellent service", timestamp: Date.now() - 1000 },
-  { id: "2", score: 4, comment: "Very good", timestamp: Date.now() - 2000 },
-  { id: "3", score: 3, comment: "Average", timestamp: Date.now() - 3000 },
-  { id: "4", score: 2, comment: "Below average", timestamp: Date.now() - 4000 },
-  { id: "5", score: 1, comment: "Poor service", timestamp: Date.now() - 5000 },
-];
+  const mockRatings: Rating[] = [
+    { id: "1", score: 5, comment: "Excellent service", timestamp: Date.now() - 1000 },
+    { id: "2", score: 4, comment: "Very good", timestamp: Date.now() - 2000 },
+    { id: "3", score: 3, comment: "Average", timestamp: Date.now() - 3000 },
+    { id: "4", score: 2, comment: "Below average", timestamp: Date.now() - 4000 },
+    { id: "5", score: 1, comment: "Poor service", timestamp: Date.now() - 5000 },
+  ];
 
   const mockClearRatings = jest.fn();
 
@@ -92,12 +120,21 @@ describe("Dashboard Component", () => {
     expect(screen.getByText("No ratings found.")).toBeInTheDocument();
   });
 
-  it("calls clearRatings when clear button is clicked", () => {
+  it("opens modal when clear button is clicked and clears ratings after confirmation", () => {
     render(<Dashboard />);
 
-    const clearButton = screen.getByText("Clear All Ratings");
+    // Get and click the clear button
+    const clearButton = screen.getByRole("button", { name: /clear all ratings/i });
     fireEvent.click(clearButton);
 
+    // Check that modal is visible
+    expect(screen.getByTestId("confirmation-modal")).toBeInTheDocument();
+    
+    // Click the confirm button in the modal
+    const confirmButton = screen.getByTestId("confirm-button");
+    fireEvent.click(confirmButton);
+    
+    // Now clearRatings should have been called
     expect(mockClearRatings).toHaveBeenCalledTimes(1);
   });
 
@@ -165,4 +202,66 @@ describe("Dashboard Component", () => {
     // Last item (index 4) should be the oldest rating
     expect(ratingFeedbacks[4]).toHaveTextContent("Poor service");
   });
+
+  it("opens confirmation modal when Clear All Ratings button is clicked", () => {
+    render(<Dashboard />);
+    
+    // Modal should not be initially visible
+    expect(screen.queryByTestId("confirmation-modal")).not.toBeInTheDocument();
+    
+    // Click the clear ratings button (use a more specific selector)
+    const clearButton = screen.getByRole("button", { name: /clear all ratings/i });
+    fireEvent.click(clearButton);
+    
+    // Modal should now be visible
+    expect(screen.getByTestId("confirmation-modal")).toBeInTheDocument();
+    
+    // Use testIds to check modal content instead of just text
+    const modalTitle = screen.getByTestId("modal-title");
+    expect(modalTitle).toHaveTextContent("Clear All Ratings");
+    
+    expect(screen.getByTestId("modal-message")).toHaveTextContent(
+      "Are you sure you want to delete all ratings? This action cannot be undone."
+    );
+  });
+
+  it("closes the modal and doesn't clear ratings when Cancel is clicked", () => {
+    render(<Dashboard />);
+    
+    // Open the modal
+    const clearButton = screen.getByRole("button", { name: /clear all ratings/i });
+    fireEvent.click(clearButton);
+    
+    // Check modal is open
+    expect(screen.getByTestId("confirmation-modal")).toBeInTheDocument();
+    
+    // Click the cancel button
+    const cancelButton = screen.getByTestId("cancel-button");
+    fireEvent.click(cancelButton);
+    
+    // Modal should be closed
+    expect(screen.queryByTestId("confirmation-modal")).not.toBeInTheDocument();
+    
+    // clearRatings should not have been called
+    expect(mockClearRatings).not.toHaveBeenCalled();
+  });
+
+  it("clears ratings when confirmation is given in the modal", () => {
+    render(<Dashboard />);
+    
+    // Open the modal
+    const clearButton = screen.getByRole("button", { name: /clear all ratings/i });
+    fireEvent.click(clearButton);
+    
+    // Click the confirm button
+    const confirmButton = screen.getByTestId("confirm-button");
+    fireEvent.click(confirmButton);
+    
+    // Modal should be closed
+    expect(screen.queryByTestId("confirmation-modal")).not.toBeInTheDocument();
+    
+    // clearRatings should have been called
+    expect(mockClearRatings).toHaveBeenCalledTimes(1);
+  });
+  
 });

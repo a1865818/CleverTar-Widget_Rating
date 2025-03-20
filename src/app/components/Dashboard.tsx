@@ -2,11 +2,13 @@
 
 import { useRatingContext } from '../context/RatingContext';
 import RatingItem from './RatingItem';
+import ConfirmationModal from './ConfirmationModal';
 import { useState } from 'react';
 
 export default function Dashboard() {
   const { ratings, clearRatings } = useRatingContext();
   const [filterValue, setFilterValue] = useState<string>('all');
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const getAverageRating = (): string => {
     if (ratings.length === 0) return '0.0';
@@ -34,12 +36,23 @@ export default function Dashboard() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">Ratings Dashboard</h2>
         <button
-          onClick={clearRatings}
+          onClick={() => setIsModalOpen(true)}
           className="py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors"
         >
           Clear All Ratings
         </button>
       </div>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={clearRatings}
+        title="Clear All Ratings"
+        message="Are you sure you want to delete all ratings? This action cannot be undone."
+        confirmButtonText="Yes, Clear All"
+        cancelButtonText="Cancel"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-blue-50 p-4 rounded-lg text-center">
@@ -113,7 +126,7 @@ export default function Dashboard() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-gray-50 rounded-lg">
+        < div className="text-center py-12 bg-gray-50 rounded-lg">
           <p className="text-gray-500">No ratings found.</p>
         </div>
       )}

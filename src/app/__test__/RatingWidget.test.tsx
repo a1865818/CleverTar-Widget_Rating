@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RatingWidget from '../components/RatingWidget';
 import { useRatingContext } from '../context/RatingContext';
@@ -127,13 +127,14 @@ describe('RatingWidget Component', () => {
     fireEvent.click(starButtons[2]);
     fireEvent.click(screen.getByTestId('submit-feedback'));
     
-    // Fast-forward timer to trigger reset
-    jest.advanceTimersByTime(3000);
+    // Use act to properly handle state updates from setTimeout
+    await act(async () => {
+      // Fast-forward timer to trigger reset
+      jest.advanceTimersByTime(3000);
+    });
     
     // Component should be back to initial state
-    await waitFor(() => {
-      expect(screen.getByText('How would you rate this website?')).toBeInTheDocument();
-    });
+    expect(screen.getByText('How would you rate this website?')).toBeInTheDocument();
   });
 
   it('has correct accessibility attributes', () => {

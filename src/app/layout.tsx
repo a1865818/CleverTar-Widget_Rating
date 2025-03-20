@@ -1,4 +1,3 @@
-
 import './globals.css';
 import { RatingProvider } from './context/RatingContext';
 import { ReactNode } from 'react';

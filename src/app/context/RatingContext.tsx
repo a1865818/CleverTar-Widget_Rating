@@ -1,15 +1,9 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { Rating } from '../interfaces/Rating';
 
-// Define interfaces for Rating and context value
-interface Rating {
-  id?: string;
-  score: number;
-  comment?: string;
-  timestamp?: number;
-}
-
+// Define interface for context value
 interface RatingContextType {
   ratings: Rating[];
   addRating: (rating: Rating) => void;
