@@ -38,9 +38,16 @@ This implementation satisfies all requirements from the take-home test:
 - ✓ **Visually appealing**: Clean, modern design with responsive layouts
 - ✓ **Simple storage**: Using localStorage for persistent data without backend requirements
 
+## 🎨 Figma Design
+
+The design for this project was created using Figma. You can view the Figma file here:
+
+[View Figma Design](https://www.figma.com/design/OgbLPRaIf37eHHjurpfatK/Widget-Rating?node-id=0-1&t=g0grjMqidd1aaSY7-1)
+
+
 ## 🚀 Live Demo
 
-View the live demo at: [https://rating-widget.vercel.app](https://rating-widget.vercel.app)
+View the live demo at: [https://clever-tar-widget-rating.vercel.app/](https://clever-tar-widget-rating.vercel.app/)
 
 ## 🛠️ Tech Stack
 
