@@ -6,7 +6,8 @@ A responsive, interactive rating widget that allows visitors to rate your websit
 
 ### Rating Widget
 - Interactive 5-star rating system with hover effects
-- Two-step feedback collection (rating + comment)
+- Two-step feedback collection (rating + username and comment)
+- User identification with personalized username inputs
 - Success confirmation after submission
 - Fully responsive design for all device sizes
 - Accessible with proper ARIA labels and keyboard navigation
@@ -16,6 +17,7 @@ A responsive, interactive rating widget that allows visitors to rate your websit
 - Rating statistics (total count, average rating, highest rating)
 - Interactive rating distribution chart
 - Filterable list of individual ratings
+- Reviewer identification with usernames displayed
 - Option to clear all ratings (with confirmation)
 
 ### Technical Features
@@ -33,7 +35,7 @@ This implementation satisfies all requirements from the take-home test:
 - ✓ **Interactive rating selection**: Users can select from 1-5 stars with hover effects
 - ✓ **Clear visual feedback**: Selected stars change color and scale up when selected
 - ✓ **Easy integration**: Implemented as modular components that can be placed on any page
-- ✓ **Record user ratings**: All ratings are stored with timestamps and optional comments
+- ✓ **Record user ratings**: All ratings are stored with usernames, timestamps and comments
 - ✓ **Dashboard UI**: Comprehensive dashboard showing all ratings with filtering options
 - ✓ **Visually appealing**: Clean, modern design with responsive layouts
 - ✓ **Simple storage**: Using localStorage for persistent data without backend requirements
@@ -83,15 +85,18 @@ my-app/
 Created distinct interfaces for data storage (`Rating`) and UI presentation (`DisplayRating`) to maintain clean separation of concerns.
 
 ### 2. Progressive Disclosure
-Implemented a stepped rating experience to reduce cognitive load - first stars, then feedback form.
+Implemented a stepped rating experience to reduce cognitive load - first stars, then feedback form with username input.
 
-### 3. Responsive Design
+### 3. User Identity Capture
+Added username field to personalize feedback and make the dashboard more informative with attributed reviews.
+
+### 4. Responsive Design
 All components adapt to different screen sizes with appropriate spacing and sizing.
 
-### 4. Accessibility
+### 5. Accessibility
 Added proper ARIA labels, keyboard navigation, and focus management for screen readers.
 
-### 5. Confirmation Flows
+### 6. Confirmation Flows
 Added modal confirmations for destructive actions like clearing all ratings.
 
 ## 📋 Installation & Setup
@@ -139,15 +144,16 @@ The home page features navigation buttons to access the rating widget or view th
 
 ### Rating Widget
 1. Click on a star (1-5) to select your rating
-2. Optionally provide additional feedback in the text area
-3. Submit your feedback
-4. View the success confirmation
+2. Enter your name in the username field
+3. Provide detailed feedback in the comment area
+4. Submit your feedback
+5. View the success confirmation
 
 ### Dashboard
 1. View summary statistics at the top (total ratings, average, highest)
 2. See the distribution of ratings in the chart
 3. Filter ratings by star count using the dropdown
-4. View individual ratings with their timestamps and comments
+4. View individual ratings with usernames, timestamps and comments
 
 ## 🧪 Testing
 
@@ -169,7 +175,8 @@ If I were to extend this project, I would consider:
 - Implementing server-side storage with a database
 - Allow users to edit or delete their ratings
 - Implementing custom theming options
-- Showing user's name and profile picture in the review
+- Adding user profile pictures alongside reviews
+- Implementing rating verification to prevent spam
 
 ## 📄 License
 
