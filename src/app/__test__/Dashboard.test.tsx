@@ -16,6 +16,7 @@ jest.mock("../components/RatingItem", () => ({
   default: ({ rating }: { rating: DisplayRating }) => (
     <div data-testid="rating-item">
       <span data-testid="rating-score">{rating.rating}</span>
+      <span data-testid="rating-username">{rating.username}</span>
       {rating.feedback && <p data-testid="rating-feedback">{rating.feedback}</p>}
     </div>
   ),
@@ -57,13 +58,13 @@ jest.mock("../components/ConfirmationModal", () => ({
 }));
 
 describe("Dashboard Component", () => {
-  // Sample test data
+  // Update sample test data with usernames
   const mockRatings: Rating[] = [
-    { id: "1", score: 5, comment: "Excellent service", timestamp: Date.now() - 1000 },
-    { id: "2", score: 4, comment: "Very good", timestamp: Date.now() - 2000 },
-    { id: "3", score: 3, comment: "Average", timestamp: Date.now() - 3000 },
-    { id: "4", score: 2, comment: "Below average", timestamp: Date.now() - 4000 },
-    { id: "5", score: 1, comment: "Poor service", timestamp: Date.now() - 5000 },
+    { id: "1", score: 5, comment: "Excellent service", timestamp: Date.now() - 1000, username: "Alice Johnson" },
+    { id: "2", score: 4, comment: "Very good", timestamp: Date.now() - 2000, username: "Bob Smith" },
+    { id: "3", score: 3, comment: "Average", timestamp: Date.now() - 3000, username: "Charlie Brown" },
+    { id: "4", score: 2, comment: "Below average", timestamp: Date.now() - 4000, username: "David Miller" },
+    { id: "5", score: 1, comment: "Poor service", timestamp: Date.now() - 5000, username: "Eva Davis" },
   ];
 
   const mockClearRatings = jest.fn();
@@ -262,6 +263,35 @@ describe("Dashboard Component", () => {
     
     // clearRatings should have been called
     expect(mockClearRatings).toHaveBeenCalledTimes(1);
+  });
+
+  it("passes username from Rating to DisplayRating correctly", () => {
+    render(<Dashboard />);
+    
+    // Get all usernames from the mocked ratings
+    const usernames = screen.getAllByTestId('rating-username');
+    
+    // Verify the first username is correct
+    expect(usernames[0]).toHaveTextContent("Alice Johnson");
+    
+    // Verify the last username is correct
+    expect(usernames[4]).toHaveTextContent("Eva Davis");
+  });
+
+  it("maintains username when filtering ratings", () => {
+    render(<Dashboard />);
+    
+    // Initially should show all 5 ratings with their usernames
+    expect(screen.getAllByTestId("rating-username").length).toBe(5);
+    
+    // Filter to show only 5-star ratings (Alice Johnson's rating)
+    const filterSelect = screen.getByRole("combobox");
+    fireEvent.change(filterSelect, { target: { value: "5" } });
+    
+    // Now should only show Alice's rating
+    const filteredUsernames = screen.getAllByTestId("rating-username");
+    expect(filteredUsernames.length).toBe(1);
+    expect(filteredUsernames[0]).toHaveTextContent("Alice Johnson");
   });
   
 });

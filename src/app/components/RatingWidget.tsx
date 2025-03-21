@@ -36,12 +36,13 @@ export default function RatingWidget() {
     setShowFeedback(true);
   }, []);
 
-  const handleSubmitFeedback = useCallback((feedback: string) => {
+  const handleSubmitFeedback = useCallback((feedback: string, username: string) => {
     const newRating: Rating = {
       id: Date.now().toString(),
       score: selectedRating,
       comment: feedback,
       timestamp: Date.now(),
+      username: username, 
     };
 
     addRating(newRating);

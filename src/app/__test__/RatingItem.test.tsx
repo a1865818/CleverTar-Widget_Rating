@@ -9,10 +9,13 @@ describe('RatingItem Component', () => {
   const mockTimestamp = mockDate.toISOString();
   const mockFormattedDate = mockDate.toLocaleString();
 
+  
   // Test data
   const baseRating = {
     rating: 4,
-    timestamp: mockTimestamp
+    timestamp: mockTimestamp,
+    feedback: 'Great product!',
+    username: 'John Doe'  
   };
 
   it('renders the rating correctly', () => {
@@ -20,6 +23,39 @@ describe('RatingItem Component', () => {
     
     // Check if the rating number is displayed
     expect(screen.getByText('4')).toBeInTheDocument();
+  });
+
+  // New test for username display
+  it('displays the username of the reviewer', () => {
+    render(<RatingItem rating={baseRating} />);
+    
+    // Check if the username is displayed
+    expect(screen.getByText('John Doe')).toBeInTheDocument();
+  });
+
+  it('displays different usernames correctly', () => {
+    const ratingWithDifferentUser = {
+      ...baseRating,
+      username: 'Jane Smith'
+    };
+    
+    render(<RatingItem rating={ratingWithDifferentUser} />);
+    
+    // Check if the different username is displayed
+    expect(screen.getByText('Jane Smith')).toBeInTheDocument();
+  });
+
+  it('renders the complete rating item with all components', () => {
+    render(<RatingItem rating={baseRating} />);
+    
+    // Check that all components are rendered
+    expect(screen.getByText('John Doe')).toBeInTheDocument(); // Username
+    expect(screen.getByText('4')).toBeInTheDocument(); // Rating number
+    expect(screen.getByTestId('rating-feedback')).toHaveTextContent('Great product!'); // Feedback
+    
+    // Check star display
+    const stars = screen.getAllByText('★');
+    expect(stars.length).toBe(5);
   });
 
   it('displays the correct number of filled stars', () => {
@@ -44,7 +80,7 @@ describe('RatingItem Component', () => {
     expect(screen.getByText(mockFormattedDate)).toBeInTheDocument();
   });
 
-  it('displays feedback when provided', () => {
+  it('displays feedback', () => {
     const ratingWithFeedback = {
       ...baseRating,
       feedback: 'This is a great product!'
@@ -54,13 +90,6 @@ describe('RatingItem Component', () => {
     
     // Check if the feedback text is displayed
     expect(screen.getByTestId('rating-feedback')).toHaveTextContent('This is a great product!');
-  });
-
-  it('does not display feedback section when no feedback is provided', () => {
-    render(<RatingItem rating={baseRating} />);
-    
-    // Check that the feedback element is not present
-    expect(screen.queryByTestId('rating-feedback')).not.toBeInTheDocument();
   });
 
   it('renders different star ratings correctly', () => {

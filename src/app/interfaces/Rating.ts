@@ -10,10 +10,11 @@
  * matches the structure of how the data is managed internally.
  */
 export interface Rating {
-  id?: string;
+  id: string;
   score: number;
-  comment?: string;
-  timestamp?: number;
+  comment: string;
+  timestamp: number;
+  username: string;
 }
 
 /**
@@ -35,5 +36,6 @@ export interface Rating {
 export interface DisplayRating {
   rating: number;
   timestamp: string;
-  feedback?: string;
+  feedback: string;
+  username: string;
 }

@@ -3,10 +3,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import FeedbackForm from '../components/FeedbackForm';
 
-// Mock the window.alert
-const mockAlert = jest.fn();
-window.alert = mockAlert;
-
 describe('FeedbackForm Component', () => {
   const mockSubmit = jest.fn();
   const defaultProps = {
@@ -17,7 +13,6 @@ describe('FeedbackForm Component', () => {
   beforeEach(() => {
     // Clear mocks before each test
     mockSubmit.mockClear();
-    mockAlert.mockClear();
   });
 
   it('renders with correct title and rating stars', () => {
@@ -26,8 +21,8 @@ describe('FeedbackForm Component', () => {
     // Check title
     expect(screen.getByText('Thanks for your rating!')).toBeInTheDocument();
     
-    // Check prompt text
-    expect(screen.getByText('Would you like to share any additional feedback?')).toBeInTheDocument();
+    // Check prompt text - updated to match the new text
+    expect(screen.getByText('Please share your feedback with us:')).toBeInTheDocument();
     
     // Check that the rating display has proper aria-label
     expect(screen.getByLabelText('Rating: 4 out of 5')).toBeInTheDocument();
@@ -74,24 +69,27 @@ describe('FeedbackForm Component', () => {
     expect(textarea).toHaveValue('This is my feedback');
   });
 
-  it('calls onSubmit with feedback when form is submitted', () => {
+  it('calls onSubmit with feedback and username when form is submitted', () => {
     render(<FeedbackForm {...defaultProps} />);
     
-    const textarea = screen.getByLabelText('Feedback input');
+    const usernameInput = screen.getByLabelText('Username input');
+    const feedbackInput = screen.getByLabelText('Feedback input');
     const submitButton = screen.getByText('Submit Feedback');
     
-    // Type feedback and submit
-    fireEvent.change(textarea, { target: { value: 'This is my feedback' } });
+    // Type username and feedback
+    fireEvent.change(usernameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(feedbackInput, { target: { value: 'This is my feedback' } });
     fireEvent.click(submitButton);
     
-    // Check if onSubmit was called with the correct feedback
-    expect(mockSubmit).toHaveBeenCalledWith('This is my feedback');
+    // Check that onSubmit was called with both parameters
+    expect(mockSubmit).toHaveBeenCalledWith('This is my feedback', 'John Doe');
     
     // Check if textarea is cleared after submission
-    expect(textarea).toHaveValue('');
+    expect(feedbackInput).toHaveValue('');
+    expect(usernameInput).toHaveValue('');
   });
 
-  it('shows alert when submitting empty feedback', () => {
+  it('shows validation errors when submitting empty fields', () => {
     render(<FeedbackForm {...defaultProps} />);
     
     const submitButton = screen.getByText('Submit Feedback');
@@ -99,23 +97,27 @@ describe('FeedbackForm Component', () => {
     // Submit with empty feedback
     fireEvent.click(submitButton);
     
-    // Check that alert was called and onSubmit was not
-    expect(mockAlert).toHaveBeenCalledWith('Please enter your feedback before submitting.');
+    // Check that validation errors are shown
+    expect(screen.getByText('Please enter your name')).toBeInTheDocument();
+    expect(screen.getByText('Please enter your feedback')).toBeInTheDocument();
     expect(mockSubmit).not.toHaveBeenCalled();
   });
 
-  it('shows alert when submitting only whitespace', () => {
+  it('shows validation errors when submitting only whitespace', () => {
     render(<FeedbackForm {...defaultProps} />);
     
-    const textarea = screen.getByLabelText('Feedback input');
+    const usernameInput = screen.getByLabelText('Username input');
+    const feedbackInput = screen.getByLabelText('Feedback input');
     const submitButton = screen.getByText('Submit Feedback');
     
     // Type only spaces and submit
-    fireEvent.change(textarea, { target: { value: '   ' } });
+    fireEvent.change(usernameInput, { target: { value: '   ' } });
+    fireEvent.change(feedbackInput, { target: { value: '   ' } });
     fireEvent.click(submitButton);
     
-    // Check that alert was called and onSubmit was not
-    expect(mockAlert).toHaveBeenCalledWith('Please enter your feedback before submitting.');
+    // Check that validation errors appear
+    expect(screen.getByText('Please enter your name')).toBeInTheDocument();
+    expect(screen.getByText('Please enter your feedback')).toBeInTheDocument();
     expect(mockSubmit).not.toHaveBeenCalled();
   });
 
@@ -123,15 +125,104 @@ describe('FeedbackForm Component', () => {
     render(<FeedbackForm {...defaultProps} />);
     
     const form = screen.getByRole('form');
-    const textarea = screen.getByLabelText('Feedback input');
+    const usernameInput = screen.getByLabelText('Username input');
+    const feedbackInput = screen.getByLabelText('Feedback input');
     
-    // Type feedback
-    fireEvent.change(textarea, { target: { value: 'This is my feedback' } });
+    // Type username and feedback
+    fireEvent.change(usernameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(feedbackInput, { target: { value: 'This is my feedback' } });
     
     // Submit the form
     fireEvent.submit(form);
     
     // Check if onSubmit was called with the correct feedback
-    expect(mockSubmit).toHaveBeenCalledWith('This is my feedback');
+    expect(mockSubmit).toHaveBeenCalledWith('This is my feedback', 'John Doe');
+  });
+
+  // New tests for username field
+  it('updates username when typing in the input field', () => {
+    render(<FeedbackForm {...defaultProps} />);
+    
+    const usernameInput = screen.getByLabelText('Username input');
+    fireEvent.change(usernameInput, { target: { value: 'John Doe' } });
+    
+    expect(usernameInput).toHaveValue('John Doe');
+  });
+
+  it('shows validation errors when submitting empty fields', () => {
+    render(<FeedbackForm {...defaultProps} />);
+    
+    const submitButton = screen.getByText('Submit Feedback');
+    fireEvent.click(submitButton);
+    
+    // Check that error messages are displayed
+    expect(screen.getByText('Please enter your name')).toBeInTheDocument();
+    expect(screen.getByText('Please enter your feedback')).toBeInTheDocument();
+    
+    // Check that onSubmit was not called
+    expect(mockSubmit).not.toHaveBeenCalled();
+  });
+
+  it('hides validation error when filling in a field', () => {
+    render(<FeedbackForm {...defaultProps} />);
+    
+    // Submit with empty fields to trigger errors
+    fireEvent.click(screen.getByText('Submit Feedback'));
+    
+    // Check that both errors are shown
+    expect(screen.getByText('Please enter your name')).toBeInTheDocument();
+    expect(screen.getByText('Please enter your feedback')).toBeInTheDocument();
+    
+    // Fill in the username field
+    const usernameInput = screen.getByLabelText('Username input');
+    fireEvent.change(usernameInput, { target: { value: 'John Doe' } });
+    
+    // Username error should disappear, but feedback error should remain
+    expect(screen.queryByText('Please enter your name')).not.toBeInTheDocument();
+    expect(screen.getByText('Please enter your feedback')).toBeInTheDocument();
+  });
+
+  it('calls onSubmit with both feedback and username when form is submitted', () => {
+    render(<FeedbackForm {...defaultProps} />);
+    
+    const usernameInput = screen.getByLabelText('Username input');
+    const feedbackInput = screen.getByLabelText('Feedback input');
+    const submitButton = screen.getByText('Submit Feedback');
+    
+    // Type username and feedback
+    fireEvent.change(usernameInput, { target: { value: 'John Doe' } });
+    fireEvent.change(feedbackInput, { target: { value: 'This is my feedback' } });
+    
+    // Submit the form
+    fireEvent.click(submitButton);
+    
+    // Check if onSubmit was called with the correct values
+    expect(mockSubmit).toHaveBeenCalledWith('This is my feedback', 'John Doe');
+    
+    // Check if fields are cleared after submission
+    expect(usernameInput).toHaveValue('');
+    expect(feedbackInput).toHaveValue('');
+  });
+
+  it('validates whitespace in both username and feedback fields => Fill in these fields', () => {
+    render(<FeedbackForm {...defaultProps} />);
+    
+    const usernameInput = screen.getByLabelText('Username input');
+    const feedbackInput = screen.getByLabelText('Feedback input');
+    const submitButton = screen.getByText('Submit Feedback');
+    
+    // Type only whitespace
+    fireEvent.change(usernameInput, { target: { value: '   ' } });
+    fireEvent.change(feedbackInput, { target: { value: '   ' } });
+    
+    // Submit the form
+    fireEvent.click(submitButton);
+    
+    // Check that error messages are still displayed
+    expect(screen.getByText('Please enter your name')).toBeInTheDocument();
+    expect(screen.getByText('Please enter your feedback')).toBeInTheDocument();
+    
+    // Check that onSubmit was not called
+    expect(mockSubmit).not.toHaveBeenCalled();
   });
 });

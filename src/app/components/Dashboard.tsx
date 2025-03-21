@@ -42,7 +42,7 @@ export default function Dashboard() {
     return distribution;
   };
 
-  // Filter ratings based on selection and then sort by timestamp (newest first)
+  // Filter ratings based on selection and then sort by timestamp
   const filteredRatings = filterValue === 'all'
     ? [...ratings].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
     : [...ratings]
@@ -139,6 +139,7 @@ export default function Dashboard() {
                 rating: rating.score, 
                 timestamp: new Date(rating.timestamp || 0).toISOString(),
                 feedback: rating.comment,
+                username: rating.username,
               }}
             />
           ))}

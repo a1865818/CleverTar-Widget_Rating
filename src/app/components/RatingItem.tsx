@@ -3,11 +3,13 @@
  * 
  * This component renders an individual rating item in the ratings list.
  * It displays a rating score (1-5) with a visual star representation,
- * the timestamp of when the rating was submitted, and any feedback text
- * that was provided with the rating.
+ * the username of the reviewer, the timestamp of when the rating was submitted, 
+ * and any feedback text that was provided with the rating.
  * 
  * Features:
+ * - Displays username of the reviewer
  * - Displays numeric rating in a blue badge
+ * - Present ratings in chronological order
  * - Shows visual star representation (filled yellow stars for the rating)
  * - Formats the timestamp to a human-readable date and time
  * - Conditionally renders feedback text when available
@@ -18,8 +20,6 @@
  * rating: A DisplayRating object containing rating details
  * 
  * @returns A formatted rating item card
- */
-/*
  */
 
 import { DisplayRating } from '../interfaces/Rating';
@@ -37,12 +37,15 @@ export default function RatingItem({ rating }: RatingItemProps) {
 
   return (
     <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between items-start mb-2">
         <div className="flex items-center">
           <div className="bg-blue-100 rounded-full p-2 mr-3">
             <span className="text-blue-800 font-bold">{rating.rating}</span>
           </div>
           <div>
+            <div className="text-sm font-medium text-gray-700">
+          {rating.username}
+        </div>
             <div className="flex mb-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <span key={star} className="text-lg">
@@ -57,9 +60,10 @@ export default function RatingItem({ rating }: RatingItemProps) {
             <p className="text-xs text-gray-500">{formatDate(rating.timestamp)}</p>
           </div>
         </div>
+        
       </div>
       {rating.feedback && (
-        <div className="mt-3 pl-10">
+        <div className="mt-3 pl-10 border-t pt-3 border-gray-100">
           <p className="text-gray-700" data-testid="rating-feedback">{rating.feedback}</p>
         </div>
       )}
