@@ -1,3 +1,16 @@
+/**
+ * Tests for the RatingItem component.
+ * These tests verify that:
+ * - The component displays the correct rating value and stars
+ * - Username is properly rendered
+ * - Feedback text is displayed
+ * - The timestamp is formatted correctly
+ * - The UI structure and styling are applied as expected
+ * 
+ * The suite uses mock implementations for:
+ * - The formatDate function
+ * - A sample rating object
+ */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';

@@ -1,3 +1,18 @@
+/**
+ * Root Layout Component for the Rating Widget App
+ * 
+ * This is the main layout component that wraps the entire application.
+ * It provides a consistent structure for all pages including:
+ * - HTML document structure
+ * - Meta tags for SEO and viewport settings
+ * - Global styles
+ * - RatingProvider context for state management across the app
+ *
+ * @param props - Component props
+ * @param props.children - Child components to be rendered within the layout
+ * @returns The application's root layout structure 
+ */
+
 import './globals.css';
 import { RatingProvider } from './context/RatingContext';
 import { ReactNode } from 'react';

@@ -1,3 +1,19 @@
+/**
+ * Home Component - The landing page of the website
+ * 
+ * This component renders the main welcome page featuring:
+ * - A greeting header
+ * - A brief description encouraging user feedback
+ * - Two navigation links:
+ *   - Rate Our Website - Routes to the rating page
+ *   - View Ratings Dashboard - Routes to the dashboard for viewing collected ratings
+ *
+ * The component uses a clean, centered layout with responsive design elements
+ * and interactive buttons with icon prefixes for better user experience.
+ * 
+ * @returns The rendered Home component
+ */
+
 import Link from 'next/link';
 
 export default function Home() {

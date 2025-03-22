@@ -1,5 +1,22 @@
+/**
+ * Tests for the RatingWidget component.
+ * 
+ * These tests verify that the RatingWidget:
+ * - Renders correctly with initial state
+ * - Allows users to hover over and select ratings
+ * - Shows feedback form after rating selection
+ * - Submits ratings with feedback
+ * - Shows confirmation message after submission
+ * - Resets after timeout
+ * - Has proper accessibility attributes
+ * 
+ * The suite uses mock implementations for:
+ * - The RatingContext hook
+ * - The FeedbackForm component
+ * - setTimeout function
+ */
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import RatingWidget from '../components/RatingWidget';
 import { useRatingContext } from '../context/RatingContext';

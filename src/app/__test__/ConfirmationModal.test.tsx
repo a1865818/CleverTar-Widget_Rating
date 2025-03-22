@@ -1,3 +1,19 @@
+/**
+ * Test suite for the ConfirmationModal component.
+ * 
+ * These tests verify the component's functionality including:
+ * - Proper rendering when open and closed
+ * - Default button text fallback behavior
+ * - Event handling (confirm/cancel buttons, Escape key, outside clicks)
+ * - Callback invocation patterns
+ * - Accessibility compliance (ARIA attributes)
+ * 
+ * The suite uses mock implementations for:
+ * - The onClose and onConfirm callback functions
+ * - Default props for the modal
+ * 
+ */
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';

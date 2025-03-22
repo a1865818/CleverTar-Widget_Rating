@@ -1,3 +1,24 @@
+/**
+ * Dashboard Component Tests
+ * 
+ * This test suite verifies the functionality of the Dashboard component which displays rating analytics.
+ * 
+ * The tests cover:
+ * - Basic rendering of dashboard elements and statistics
+ * - Calculation of analytics (total ratings, average rating, highest rating)
+ * - Empty state handling when no ratings exist
+ * - Modal interaction for clearing ratings
+ * - Rating filtering functionality
+ * - Sorting behavior for displaying ratings
+ * - Username display in rating items
+ * - Rating distribution visualization
+ * 
+ * The suite uses mock implementations for:
+ * - RatingContext to provide controlled test data
+ * - RatingItem component to simplify testing the rendered ratings
+ * - ConfirmationModal to verify modal interactions 
+ */
+
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";

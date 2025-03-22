@@ -1,3 +1,20 @@
+/**
+ * Unit tests for the FeedbackForm component
+ * 
+ * These tests verify:
+ * - Proper rendering of component elements (titles, stars, labels)
+ * - Rating display functionality with different star counts
+ * - Form validation for username and feedback fields
+ * - Error handling for empty fields and whitespace-only inputs
+ * - State updates when user types in fields
+ * - Form submission behavior and subsequent field clearing
+ * - Proper interaction with the parent component via onSubmit callback
+ * - Validation error message appearance and disappearance
+ * 
+ * The suite uses mock implementations for:
+ * - The onSubmit callback function
+ * - A sample rating value
+ */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
